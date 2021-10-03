@@ -1,0 +1,1 @@
+export const DBF2SQL_MAPPING_API_BASE_URL = process.env.DBF2SQL_MAPPING_API_BASE_URL || "http://localhost:56596";

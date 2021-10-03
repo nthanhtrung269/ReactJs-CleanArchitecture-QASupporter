@@ -1,0 +1,136 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>QASupporter.Api</name>
+    </assembly>
+    <members>
+        <member name="T:QASupporter.Api.Controllers.AppController">
+            <summary>
+            The AppController.
+            </summary>
+        </member>
+        <member name="M:QASupporter.Api.Controllers.AppController.#ctor(Microsoft.Extensions.Logging.ILogger{QASupporter.Api.Controllers.AppController},Microsoft.Extensions.Options.IOptions{QASupporter.Application.Configuration.ApplicationSettings.ReadmeSettings})">
+            <summary>
+            The ProgramController constructor.
+            </summary>
+            <param name="logger">The logger.</param>
+            <param name="config">The config.</param>
+        </member>
+        <member name="M:QASupporter.Api.Controllers.AppController.Readme">
+            <summary>
+            Returns Readme information.
+            </summary>
+            <returns>Dynamic.</returns>
+        </member>
+        <member name="T:QASupporter.Api.Controllers.Dbf2SqlMappingControllerController">
+            <summary>
+            The FileController.
+            </summary>
+        </member>
+        <member name="M:QASupporter.Api.Controllers.Dbf2SqlMappingControllerController.#ctor(MediatR.IMediator,Microsoft.Extensions.Options.IOptions{QASupporter.Application.Configuration.ApplicationSettings.QaSupporterSettings})">
+            <summary>
+            File Controller.
+            </summary>
+            <param name="mediator">The mediator.</param>
+            <param name="config">The config.</param>
+        </member>
+        <member name="M:QASupporter.Api.Controllers.Dbf2SqlMappingControllerController.GetAllDbf2SqlMappingByKeyword(System.String,System.String)">
+            <summary>
+            Gets all by keyword.
+            </summary>
+            <param name="keyword">The keyword.</param>
+            /// <param name="modifiedBy">The modifiedBy.</param>
+            <returns>Task{IList{BaseDbf2SqlMappingDto}}.</returns>
+        </member>
+        <member name="T:QASupporter.Api.Controllers.SettingController">
+            <summary>
+            Setting Controller.
+            </summary>
+        </member>
+        <member name="M:QASupporter.Api.Controllers.SettingController.#ctor(QASupporter.Application.Configuration.Interfaces.ISettingAppService)">
+            <summary>
+            The SettingController.
+            </summary>
+            <param name="settingAppService">The settingAppService.</param>
+        </member>
+        <member name="M:QASupporter.Api.Controllers.SettingController.GetSettingAsync(System.Int32)">
+            <summary>
+            Gets setting by id.
+            </summary>
+            <param name="id">The id.</param>
+            <returns>Task{SettingDto}.</returns>
+        </member>
+        <member name="M:QASupporter.Api.Controllers.SettingController.GetSettingValueAsync(System.String)">
+            <summary>
+            Gets setting value by name.
+            </summary>
+            <param name="name">The name.</param>
+            <returns>Task{string}.</returns>
+        </member>
+        <member name="T:QASupporter.Api.Controllers.UsersController">
+            <summary>
+            The FileController.
+            </summary>
+        </member>
+        <member name="M:QASupporter.Api.Controllers.UsersController.#ctor(MediatR.IMediator,Microsoft.Extensions.Options.IOptions{QASupporter.Application.Configuration.ApplicationSettings.QaSupporterSettings})">
+            <summary>
+            File Controller.
+            </summary>
+            <param name="mediator">The mediator.</param>
+            <param name="config">The config.</param>
+        </member>
+        <member name="M:QASupporter.Api.Controllers.UsersController.SignIn(QASupporter.Api.RequestObjects.SignInRequest)">
+            <summary>
+            Signin.
+            </summary>
+            <param name="request">The request.</param>
+            <returns>UserInfoDto.</returns>
+        </member>
+        <member name="T:QASupporter.Api.DisableFormValueModelBindingAttribute">
+            <summary>
+            The DisableFormValueModelBindingAttribute.
+            </summary>
+        </member>
+        <member name="M:QASupporter.Api.DisableFormValueModelBindingAttribute.OnResourceExecuting(Microsoft.AspNetCore.Mvc.Filters.ResourceExecutingContext)">
+            <summary>
+            The OnResourceExecuting.
+            </summary>
+            <param name="context">The context.</param>
+        </member>
+        <member name="M:QASupporter.Api.DisableFormValueModelBindingAttribute.OnResourceExecuted(Microsoft.AspNetCore.Mvc.Filters.ResourceExecutedContext)">
+            <summary>
+            The OnResourceExecuted.
+            </summary>
+            <param name="context">The context.</param>
+        </member>
+        <member name="T:QASupporter.Api.Startup">
+            <summary>
+            The Startup class.
+            This project is built based on Clean Architecture https://github.com/ardalis/CleanArchitecture.
+            And based on DDD: https://fildev.net/category/design-pattern/domain-driven-design/
+            Document: https://github.com/dotnet-architecture/eShopOnWeb
+            </summary>
+        </member>
+        <member name="M:QASupporter.Api.Startup.#ctor(Microsoft.Extensions.Configuration.IConfiguration,Microsoft.Extensions.Hosting.IHostEnvironment)">
+            <summary>
+            The Startup constructor.
+            </summary>
+            <param name="configuration">The configuration.</param>
+            <param name="environment">The environment.</param>
+        </member>
+        <member name="M:QASupporter.Api.Startup.ConfigureServices(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
+            <summary>
+            This method gets called by the runtime. Use this method to add services to the container.
+            </summary>
+            <param name="services">The services.</param>
+        </member>
+        <member name="M:QASupporter.Api.Startup.Configure(Microsoft.AspNetCore.Builder.IApplicationBuilder,Microsoft.AspNetCore.Hosting.IWebHostEnvironment,Microsoft.Extensions.DependencyInjection.IServiceScopeFactory)">
+            <summary>
+            This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
+            </summary>
+            <param name="app">The app builder.</param>
+            <param name="env">The host environment.</param>
+            <param name="serviceScopeFactory">The serviceScopeFactory.</param>
+        </member>
+    </members>
+</doc>
