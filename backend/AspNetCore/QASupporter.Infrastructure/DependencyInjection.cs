@@ -14,7 +14,7 @@ namespace QASupporter.Infrastructure
         public static IServiceCollection AddInfrastructure(this IServiceCollection services, IConfiguration configuration)
         {
             services.AddOptions();
-            services.Configure<QaSupporterSettings>(configuration.GetSection("AssetSettings"));
+            services.Configure<QaSupporterSettings>(configuration.GetSection("QaSupporterSettings"));
             services.Configure<ReadmeSettings>(configuration.GetSection("BuildNote"));
             services.AddDbContext<DBContext>(options => options.UseSqlServer(configuration.GetConnectionString("DefaultConnection")));
 
@@ -23,6 +23,7 @@ namespace QASupporter.Infrastructure
             services.AddScoped<ISettingRepository, SettingRepository>();
             services.AddScoped<IFileReadRepository, FileReadRepository>();
             services.AddScoped<IDbf2SqlMappingDapperRepository, Dbf2SqlMappingDapperRepository>();
+            services.AddScoped<IUserDapperRepository, UserDapperRepository>();
 
             services.AddScoped<IImageResizerService, ImageResizerService>();
             services.AddScoped<IDomainEventService, DomainEventService>();

@@ -15,7 +15,7 @@ namespace QASupporter.Infrastructure.Database
         {
             const string sql = @"SELECT *
                                FROM Dbf2SqlMapping
-                               WHERE (@modifiedBy='' or modifiedBy=@modifiedBy) and (FoxproTable like concat('%', @keyword, '%') 
+                               WHERE (@modifiedBy='' or @modifiedBy is null or modifiedBy=@modifiedBy) and (FoxproTable like concat('%', @keyword, '%') 
                                     or FoxproColumn like concat('%', @keyword, '%') 
                                     or SqlTable like concat('%', @keyword, '%') 
                                     or SqlColumn like concat('%', @keyword, '%')

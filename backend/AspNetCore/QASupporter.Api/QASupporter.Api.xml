@@ -86,6 +86,12 @@
             <param name="request">The request.</param>
             <returns>UserInfoDto.</returns>
         </member>
+        <member name="M:QASupporter.Api.Controllers.UsersController.GetAllUsers">
+            <summary>
+            Gets all users.
+            </summary>
+            <returns>Task{IList{BaseUserDto}}.</returns>
+        </member>
         <member name="T:QASupporter.Api.DisableFormValueModelBindingAttribute">
             <summary>
             The DisableFormValueModelBindingAttribute.

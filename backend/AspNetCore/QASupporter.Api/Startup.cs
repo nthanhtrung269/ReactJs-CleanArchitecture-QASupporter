@@ -128,7 +128,7 @@ namespace QASupporter.Api
                 {
                     Version = "v1",
                     Title = "QA Supporter API",
-                    Description = "A Asset ASP.NET Core Web API",
+                    Description = "QA Supporter ASP.NET Core Web API",
                     TermsOfService = new Uri("https://example.com/terms"),
                     Contact = new OpenApiContact
                     {

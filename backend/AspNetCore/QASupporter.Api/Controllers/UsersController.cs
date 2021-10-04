@@ -3,8 +3,11 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using QASupporter.Api.RequestObjects;
 using QASupporter.Application.Configuration.ApplicationSettings;
+using QASupporter.Application.CqrsHandlers.GetAllUsers;
 using QASupporter.Application.CqrsHandlers.ReadModels;
 using QASupporter.Domain.Constants;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace QASupporter.Api.Controllers
 {
@@ -55,6 +58,16 @@ namespace QASupporter.Api.Controllers
                     Message = MessageConstants.InvalidOperation
                 };
             }
+        }
+
+        /// <summary>
+        /// Gets all users.
+        /// </summary>
+        /// <returns>Task{IList{BaseUserDto}}.</returns>
+        [HttpGet("get-all")]
+        public async Task<IList<BaseUserDto>> GetAllUsers()
+        {
+            return await _mediator.Send(new GetAllUsersQuery());
         }
     }
 }
