@@ -1,7 +1,6 @@
 import { createStore, compose, applyMiddleware, combineReducers } from 'redux';
 import thunk from 'redux-thunk';
 import { cartReducer } from './reducers/cartReducers';
-import { getAllDbf2SqlMappingByKeywordReducer } from './reducers/dbf2SqlMappingReducers';
 import { dbf2SqlMappingDetailsReducer, getAllDbf2SqlMappingByKeywordReducer } from './reducers/dbf2SqlMappingReducers';
 import {
   orderCreateReducer,
