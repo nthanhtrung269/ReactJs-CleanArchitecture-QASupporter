@@ -2,6 +2,7 @@ import { createStore, compose, applyMiddleware, combineReducers } from 'redux';
 import thunk from 'redux-thunk';
 import { cartReducer } from './reducers/cartReducers';
 import { getAllDbf2SqlMappingByKeywordReducer } from './reducers/dbf2SqlMappingReducers';
+import { dbf2SqlMappingDetailsReducer, getAllDbf2SqlMappingByKeywordReducer } from './reducers/dbf2SqlMappingReducers';
 import {
   orderCreateReducer,
   orderDeleteReducer,
@@ -76,6 +77,7 @@ const reducer = combineReducers({
   userAddressMap: userAddressMapReducer,
   orderSummary: orderSummaryReducer,
   getAllDbf2SqlMappingByKeyword: getAllDbf2SqlMappingByKeywordReducer,
+  dbf2SqlMappingDetails: dbf2SqlMappingDetailsReducer,
 });
 const composeEnhancer = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 const store = createStore(

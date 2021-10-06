@@ -73,6 +73,18 @@ export default function Dbf2SqlMappingScreen(props) {
           </tbody>
         </table>
       )}
+      <br />
+      <div className="row">
+        <button
+          type="button"
+          className="small"
+          onClick={() => {
+            props.history.push('/dbf2sqlmapping/add');
+          }}
+        >
+          Add New
+        </button>
+      </div>
     </div>
   );
 }

@@ -11,12 +11,11 @@ import OrderScreen from './screens/OrderScreen';
 import PaymentMethodScreen from './screens/PaymentMethodScreen';
 import PlaceOrderScreen from './screens/PlaceOrderScreen';
 import ProductListScreen from './screens/ProductListScreen';
-import ProductScreen from './screens/ProductScreen';
 import ProfileScreen from './screens/ProfileScreen';
 import RegisterScreen from './screens/RegisterScreen';
 import ShippingAddressScreen from './screens/ShippingAddressScreen';
 import SigninScreen from './screens/SigninScreen';
-import ProductEditScreen from './screens/ProductEditScreen';
+import Dbf2SqlMappingEditScreen from './screens/Dbf2SqlMappingAddEditScreen';
 import OrderListScreen from './screens/OrderListScreen';
 import UserListScreen from './screens/UserListScreen';
 import UserEditScreen from './screens/UserEditScreen';
@@ -90,6 +89,9 @@ function App() {
                   </li>
                   <li>
                     <Link to="/dbf2sqlmapping">DBF to SQL Mapping</Link>
+                  </li>
+                  <li>
+                    <Link to="/dbf2sqlmapping/add">Add DBF to SQL Mapping</Link>
                   </li>
                   <li>
                     <Link to="#signout" onClick={signoutHandler}>
@@ -175,12 +177,6 @@ function App() {
         <main>
           <Route path="/seller/:id" component={SellerScreen}></Route>
           <Route path="/cart/:id?" component={CartScreen}></Route>
-          <Route path="/product/:id" component={ProductScreen} exact></Route>
-          <Route
-            path="/product/:id/edit"
-            component={ProductEditScreen}
-            exact
-          ></Route>
           <Route path="/signin" component={SigninScreen}></Route>
           <Route path="/register" component={RegisterScreen}></Route>
           <Route path="/shipping" component={ShippingAddressScreen}></Route>
@@ -191,6 +187,7 @@ function App() {
           <Route path="/dbf2sqlmapping" component={Dbf2SqlMappingScreen} exact></Route>
           <Route path="/dbf2sqlmapping/?keyword=:keyword" component={Dbf2SqlMappingScreen} exact></Route>
           <Route path="/dbf2sqlmapping/?keyword=:keyword&modifiedBy=:modifiedBy" component={Dbf2SqlMappingScreen} exact></Route>
+          <Route path="/dbf2sqlmapping/add" component={Dbf2SqlMappingEditScreen} exact></Route>
           <Route
             path="/search/name/:name?"
             component={SearchScreen}
