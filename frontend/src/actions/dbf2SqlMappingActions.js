@@ -46,7 +46,7 @@ export const getDbf2SqlMappingDetail = (dbf2SqlMappingId) => async (dispatch) =>
 export const createDbf2SqlMapping = (dbf2SqlMapping) => async (dispatch) => {
     dispatch({ type: DBF2SQL_MAPPING_CREATE_REQUEST, payload: dbf2SqlMapping });
     try {
-        const { data } = await Axios.post('/api/dbf2sqlmapping/add', dbf2SqlMapping, {
+        const { data } = await Axios.post(`${DBF2SQL_MAPPING_API_BASE_URL}/api/dbf2sqlmapping/add`, dbf2SqlMapping, {
             headers: { Authorization: 'Bearer token...' },
           });
         dispatch({ type: DBF2SQL_MAPPING_CREATE_SUCCESS, payload: data });

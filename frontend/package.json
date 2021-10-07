@@ -10,6 +10,8 @@
     "@testing-library/user-event": "^7.1.2",
     "axios": "^0.20.0",
     "react": "^16.13.1",
+    "react-alert": "^7.0.3",
+    "react-alert-template-basic": "^1.0.2",
     "react-dom": "^16.13.1",
     "react-google-charts": "^3.0.15",
     "react-paypal-button-v2": "^2.6.2",

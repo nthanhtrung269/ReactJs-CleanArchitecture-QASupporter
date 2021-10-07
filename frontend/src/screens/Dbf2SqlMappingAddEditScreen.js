@@ -3,8 +3,10 @@ import { useDispatch, useSelector } from 'react-redux';
 import LoadingBox from '../components/LoadingBox';
 import MessageBox from '../components/MessageBox';
 import { createDbf2SqlMapping, getDbf2SqlMappingDetail } from '../actions/dbf2SqlMappingActions';
+import { useAlert } from 'react-alert'
 
 export default function Dbf2SqlMappingAddEditScreen(props) {
+  const alert = useAlert();
   const dbf2SqlMappingId = props.match.params.id;
   const [foxproTable, setFoxproTable] = useState('');
   const [foxproColumn, setFoxproColumn] = useState('');
@@ -12,12 +14,26 @@ export default function Dbf2SqlMappingAddEditScreen(props) {
   const [sqlColumn, setSqlColumn] = useState('');
   const [notes, setNotes] = useState('');
 
+  const dbf2SqlMappingCreate = useSelector((state) => state.dbf2SqlMappingCreate);
+  const {
+    loading: loadingUpdate,
+    error: errorUpdate,
+    success: successUpdate
+  } = dbf2SqlMappingCreate;
+
   const dbf2SqlMappingDetails = useSelector((state) => state.dbf2SqlMappingDetails);
   const { loading, error, dbf2SqlMappingDetail } = dbf2SqlMappingDetails;
 
   const dispatch = useDispatch();
 
   useEffect(() => {
+    if (successUpdate) {
+      alert.show('Success Update!');
+    }
+    else if (errorUpdate) {
+      alert.error(errorUpdate);
+    }
+
     if (dbf2SqlMappingId && dbf2SqlMappingId > 0) {
       if (!dbf2SqlMappingDetail) {
         dispatch(getDbf2SqlMappingDetail(dbf2SqlMappingId));
@@ -30,7 +46,7 @@ export default function Dbf2SqlMappingAddEditScreen(props) {
         setNotes(dbf2SqlMappingDetail.Notes);
       }
     }
-  }, [dbf2SqlMappingDetail, dispatch, dbf2SqlMappingId]);
+  }, [dbf2SqlMappingDetail, dispatch, dbf2SqlMappingId, errorUpdate, errorUpdate]);
 
   const submitHandler = (e) => {
     e.preventDefault();
@@ -62,8 +78,9 @@ export default function Dbf2SqlMappingAddEditScreen(props) {
               <input
                 id="foxproTable"
                 type="text"
-                placeholder="Enter Foxpro Table"
+                placeholder="Enter Foxpro Table (required)"
                 value={foxproTable}
+                required
                 onChange={(e) => setFoxproTable(e.target.value)}
               ></input>
             </div>
@@ -82,8 +99,9 @@ export default function Dbf2SqlMappingAddEditScreen(props) {
               <input
                 id="sqlTable"
                 type="text"
-                placeholder="Enter Sql Table"
+                placeholder="Enter Sql Table (required)"
                 value={sqlTable}
+                required
                 onChange={(e) => setSqlTable(e.target.value)}
               ></input>
             </div>
