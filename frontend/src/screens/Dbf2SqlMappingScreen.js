@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useParams } from 'react-router-dom';
 import { getAllDbf2SqlMappingByKeyword } from '../actions/dbf2SqlMappingActions';
 import LoadingBox from '../components/LoadingBox';
 import MessageBox from '../components/MessageBox';
@@ -17,7 +16,7 @@ export default function Dbf2SqlMappingScreen(props) {
   useEffect(() => {
     dispatch(getAllDbf2SqlMappingByKeyword({
       keyword: keyword ? keyword : '',
-      modifiedBy: modifiedBy ? modifiedBy : 'Admin'
+      modifiedBy: modifiedBy ? modifiedBy : ''
     }));
   }, [dispatch, keyword, modifiedBy]);
 

@@ -1,4 +1,5 @@
 import Axios from 'axios';
+import { DBF2SQL_MAPPING_API_BASE_URL } from '../constants/environmentConstants';
 import {
   USER_DETAILS_FAIL,
   USER_DETAILS_REQUEST,
@@ -142,7 +143,7 @@ export const listUsers = () => async (dispatch, getState) => {
     const {
       userSignin: { userInfo },
     } = getState();
-    const { data } = await Axios.get('/api/users', {
+    const { data } = await Axios.get(`${DBF2SQL_MAPPING_API_BASE_URL}/api/users/get-all`, {
       headers: {
         Authorization: `Bearer ${userInfo.token}`,
       },
