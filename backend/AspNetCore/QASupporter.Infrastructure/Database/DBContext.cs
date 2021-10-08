@@ -142,6 +142,10 @@ namespace QASupporter.Infrastructure.Database
 
                 entity.Property(e => e.Notes).HasMaxLength(500);
 
+                entity.Property(e => e.CreatedBy).HasMaxLength(50);
+
+                entity.Property(e => e.CreatedDate).HasColumnType("datetime");
+
                 entity.Property(e => e.ModifiedBy).HasMaxLength(50);
 
                 entity.Property(e => e.ModifiedDate).HasColumnType("datetime");

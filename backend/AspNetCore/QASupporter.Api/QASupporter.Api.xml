@@ -42,6 +42,12 @@
             /// <param name="modifiedBy">The modifiedBy.</param>
             <returns>Task{IList{BaseDbf2SqlMappingDto}}.</returns>
         </member>
+        <member name="M:QASupporter.Api.Controllers.Dbf2SqlMappingControllerController.Add(QASupporter.Application.CqrsHandlers.WriteModels.Dbf2SqlMappingDto)">
+            <summary>
+            Adds Dbf2SqlMapping.
+            </summary>
+            <param name="request">The request.</param>
+        </member>
         <member name="T:QASupporter.Api.Controllers.SettingController">
             <summary>
             Setting Controller.

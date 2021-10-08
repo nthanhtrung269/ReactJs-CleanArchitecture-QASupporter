@@ -2,8 +2,10 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using QASupporter.Application.Configuration.ApplicationSettings;
+using QASupporter.Application.CqrsHandlers.AddDbf2SqlMapping;
 using QASupporter.Application.CqrsHandlers.GetAllDbf2SqlMappingByKeyword;
 using QASupporter.Application.CqrsHandlers.ReadModels;
+using QASupporter.Application.CqrsHandlers.WriteModels;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -41,6 +43,16 @@ namespace QASupporter.Api.Controllers
         public async Task<IList<BaseDbf2SqlMappingDto>> GetAllDbf2SqlMappingByKeyword(string keyword, string modifiedBy)
         {
             return await _mediator.Send(new GetAllDbf2SqlMappingByKeywordQuery(keyword, modifiedBy));
+        }
+
+        /// <summary>
+        /// Adds Dbf2SqlMapping.
+        /// </summary>
+        /// <param name="request">The request.</param>
+        [HttpPost("add")]
+        public async Task<bool> Add(Dbf2SqlMappingDto request)
+        {
+            return await _mediator.Send(new AddDbf2SqlMappingCommand(request));
         }
     }
 }

@@ -24,6 +24,7 @@ namespace QASupporter.Infrastructure
             services.AddScoped<IFileReadRepository, FileReadRepository>();
             services.AddScoped<IDbf2SqlMappingDapperRepository, Dbf2SqlMappingDapperRepository>();
             services.AddScoped<IUserDapperRepository, UserDapperRepository>();
+            services.AddScoped<IDbf2SqlMappingRepository, Dbf2SqlMappingRepository>();
 
             services.AddScoped<IImageResizerService, ImageResizerService>();
             services.AddScoped<IDomainEventService, DomainEventService>();

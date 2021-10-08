@@ -1,9 +1,8 @@
 ﻿using QASupporter.Domain.SharedKernel;
-using System;
 
 namespace QASupporter.Domain.Models
 {
-    public partial class Dbf2SqlMapping : Entity<int>, IAggregateRoot
+    public partial class Dbf2SqlMapping : AuditableEntity<int>, IAggregateRoot
     {
         public string FoxproTable { get; set; }
 
@@ -14,9 +13,5 @@ namespace QASupporter.Domain.Models
         public string SqlColumn { get; set; }
 
         public string Notes { get; set; }
-
-        public string ModifiedBy { get; set; }
-
-        public DateTime? ModifiedDate { get; set; }
     }
 }
