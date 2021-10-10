@@ -2,9 +2,13 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import LoadingBox from '../components/LoadingBox';
 import MessageBox from '../components/MessageBox';
-import { createDbf2SqlMapping, getDbf2SqlMappingDetail } from '../actions/dbf2SqlMappingActions';
+import { createDbf2SqlMapping, editDbf2SqlMapping, getDbf2SqlMappingDetail } from '../actions/dbf2SqlMappingActions';
 import { useAlert } from 'react-alert'
+import { DBF2SQL_MAPPING_CREATE_RESET, DBF2SQL_MAPPING_DETAIL_RESET, DBF2SQL_MAPPING_EDIT_RESET } from '../constants/dbf2SqlMappingConstants';
 
+// Understanding Functional Components vs. Class Components in React https://www.twilio.com/blog/react-choose-functional-components
+// How To Convert React Class Components to Functional Components with React Hooks https://www.digitalocean.com/community/tutorials/five-ways-to-convert-react-class-components-to-functional-components-with-react-hooks
+// https://nimblewebdeveloper.com/blog/convert-react-class-to-function-component
 export default function Dbf2SqlMappingAddEditScreen(props) {
   const alert = useAlert();
   const dbf2SqlMappingId = props.match.params.id;
@@ -21,6 +25,13 @@ export default function Dbf2SqlMappingAddEditScreen(props) {
     success: successUpdate
   } = dbf2SqlMappingCreate;
 
+  const dbf2SqlMappingEdit = useSelector((state) => state.dbf2SqlMappingEdit);
+  const {
+    loading: loadingEdit,
+    error: errorEdit,
+    success: successEdit
+  } = dbf2SqlMappingEdit;
+
   const dbf2SqlMappingDetails = useSelector((state) => state.dbf2SqlMappingDetails);
   const { loading, error, dbf2SqlMappingDetail } = dbf2SqlMappingDetails;
 
@@ -28,10 +39,34 @@ export default function Dbf2SqlMappingAddEditScreen(props) {
 
   useEffect(() => {
     if (successUpdate) {
-      alert.show('Success Update!');
+      alert.show('Success Create!');
+      setFoxproTable('');
+      setFoxproColumn('');
+      setSqlTable('');
+      setSqlColumn('');
+      setNotes('');
+      dispatch({ type: DBF2SQL_MAPPING_CREATE_RESET });
     }
     else if (errorUpdate) {
       alert.error(errorUpdate);
+      dispatch({ type: DBF2SQL_MAPPING_CREATE_RESET });
+    }
+
+    if (successEdit) {
+      alert.show('Success Update!');
+      setFoxproTable('');
+      setFoxproColumn('');
+      setSqlTable('');
+      setSqlColumn('');
+      setNotes('');
+
+      dispatch({ type: DBF2SQL_MAPPING_DETAIL_RESET });
+      dispatch({ type: DBF2SQL_MAPPING_EDIT_RESET });
+      props.history.push('/dbf2sqlmapping');
+    }
+    else if (errorEdit) {
+      alert.error(errorEdit);
+      dispatch({ type: DBF2SQL_MAPPING_EDIT_RESET });
     }
 
     if (dbf2SqlMappingId && dbf2SqlMappingId > 0) {
@@ -46,26 +81,45 @@ export default function Dbf2SqlMappingAddEditScreen(props) {
         setNotes(dbf2SqlMappingDetail.Notes);
       }
     }
-  }, [dbf2SqlMappingDetail, dispatch, dbf2SqlMappingId, errorUpdate, errorUpdate]);
+  }, [dbf2SqlMappingDetail, dispatch, dbf2SqlMappingId, errorUpdate, successUpdate, errorEdit, successEdit]);
+
+  const isEdit = () => {
+    return dbf2SqlMappingId && dbf2SqlMappingId > 0;
+  };
 
   const submitHandler = (e) => {
     e.preventDefault();
-    dispatch(
-      createDbf2SqlMapping({
-        foxproTable,
-        foxproColumn,
-        sqlTable,
-        sqlColumn,
-        notes
-      })
-    );
+
+    if (isEdit()) {
+      dispatch(
+        editDbf2SqlMapping({
+          dbf2SqlMappingId,
+          foxproTable,
+          foxproColumn,
+          sqlTable,
+          sqlColumn,
+          notes
+        })
+      );
+    }
+    else {
+      dispatch(
+        createDbf2SqlMapping({
+          foxproTable,
+          foxproColumn,
+          sqlTable,
+          sqlColumn,
+          notes
+        })
+      );
+    }
   };
 
   return (
     <div>
       <form className="form" onSubmit={submitHandler}>
         <div>
-          <h1>Add/Edit Dbf2SqlMapping</h1>
+          <h1>{isEdit() ? "Edit" : "Add"} Dbf2SqlMapping</h1>
         </div>
         {loading ? (
           <LoadingBox></LoadingBox>

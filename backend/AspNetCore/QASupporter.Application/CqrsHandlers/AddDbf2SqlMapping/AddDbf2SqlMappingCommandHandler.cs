@@ -27,11 +27,24 @@ namespace QASupporter.Application.CqrsHandlers.AddDbf2SqlMapping
             Guard.AgainstNull(nameof(AddDbf2SqlMappingCommand), request);
 
             var dbf2SqlMapping = _mapper.Map<Dbf2SqlMappingDto, Dbf2SqlMapping>(request.Dbf2SqlMapping);
-            dbf2SqlMapping.CreatedDate = DateTime.UtcNow;
-            dbf2SqlMapping.CreatedBy = "Admin";
 
-            await _dbf2SqlMappingRepository.AddAsync(dbf2SqlMapping);
-            await _dbf2SqlMappingRepository.CommitAsync();
+            if (request.Dbf2SqlMapping.Dbf2SqlMappingId > 0)
+            {
+                dbf2SqlMapping.CreatedDate = DateTime.UtcNow;
+                dbf2SqlMapping.CreatedBy = "Admin";
+                dbf2SqlMapping.Id = request.Dbf2SqlMapping.Dbf2SqlMappingId;
+
+                await _dbf2SqlMappingRepository.UpdateAsync(dbf2SqlMapping);
+                await _dbf2SqlMappingRepository.CommitAsync();
+            }
+            else
+            {
+                dbf2SqlMapping.ModifiedDate = DateTime.UtcNow;
+                dbf2SqlMapping.ModifiedBy = "Admin";
+
+                await _dbf2SqlMappingRepository.AddAsync(dbf2SqlMapping);
+                await _dbf2SqlMappingRepository.CommitAsync();
+            }
 
             return true;
         }

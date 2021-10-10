@@ -1,7 +1,7 @@
 import { createStore, compose, applyMiddleware, combineReducers } from 'redux';
 import thunk from 'redux-thunk';
 import { cartReducer } from './reducers/cartReducers';
-import { dbf2SqlMappingCreateReducer, dbf2SqlMappingDetailsReducer, getAllDbf2SqlMappingByKeywordReducer } from './reducers/dbf2SqlMappingReducers';
+import { dbf2SqlMappingCreateReducer, dbf2SqlMappingDetailsReducer, dbf2SqlMappingEditReducer, getAllDbf2SqlMappingByKeywordReducer } from './reducers/dbf2SqlMappingReducers';
 import {
   orderCreateReducer,
   orderDeleteReducer,
@@ -78,6 +78,7 @@ const reducer = combineReducers({
   getAllDbf2SqlMappingByKeyword: getAllDbf2SqlMappingByKeywordReducer,
   dbf2SqlMappingDetails: dbf2SqlMappingDetailsReducer,
   dbf2SqlMappingCreate: dbf2SqlMappingCreateReducer,
+  dbf2SqlMappingEdit: dbf2SqlMappingEditReducer,
 });
 const composeEnhancer = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 const store = createStore(

@@ -188,6 +188,7 @@ function App() {
           <Route path="/dbf2sqlmapping/?keyword=:keyword" component={Dbf2SqlMappingScreen} exact></Route>
           <Route path="/dbf2sqlmapping/?keyword=:keyword&modifiedBy=:modifiedBy" component={Dbf2SqlMappingScreen} exact></Route>
           <Route path="/dbf2sqlmapping/add" component={Dbf2SqlMappingEditScreen} exact></Route>
+          <Route path="/dbf2sqlmapping/edit/:id" component={Dbf2SqlMappingEditScreen} exact></Route>
           <Route
             path="/search/name/:name?"
             component={SearchScreen}

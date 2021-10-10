@@ -42,9 +42,22 @@
             /// <param name="modifiedBy">The modifiedBy.</param>
             <returns>Task{IList{BaseDbf2SqlMappingDto}}.</returns>
         </member>
+        <member name="M:QASupporter.Api.Controllers.Dbf2SqlMappingControllerController.GetDbf2SqlMappingById(System.Int32)">
+            <summary>
+            Gets by id.
+            </summary>
+            <param name="id">The id.</param>
+            <returns>Task{IList{BaseDbf2SqlMappingDto}}.</returns>
+        </member>
         <member name="M:QASupporter.Api.Controllers.Dbf2SqlMappingControllerController.Add(QASupporter.Application.CqrsHandlers.WriteModels.Dbf2SqlMappingDto)">
             <summary>
             Adds Dbf2SqlMapping.
+            </summary>
+            <param name="request">The request.</param>
+        </member>
+        <member name="M:QASupporter.Api.Controllers.Dbf2SqlMappingControllerController.Edit(QASupporter.Application.CqrsHandlers.WriteModels.Dbf2SqlMappingDto)">
+            <summary>
+            Edits Dbf2SqlMapping.
             </summary>
             <param name="request">The request.</param>
         </member>

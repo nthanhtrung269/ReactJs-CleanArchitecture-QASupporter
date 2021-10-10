@@ -4,6 +4,7 @@ using Microsoft.Extensions.Options;
 using QASupporter.Application.Configuration.ApplicationSettings;
 using QASupporter.Application.CqrsHandlers.AddDbf2SqlMapping;
 using QASupporter.Application.CqrsHandlers.GetAllDbf2SqlMappingByKeyword;
+using QASupporter.Application.CqrsHandlers.GetDbf2SqlMappingById;
 using QASupporter.Application.CqrsHandlers.ReadModels;
 using QASupporter.Application.CqrsHandlers.WriteModels;
 using System.Collections.Generic;
@@ -46,11 +47,32 @@ namespace QASupporter.Api.Controllers
         }
 
         /// <summary>
+        /// Gets by id.
+        /// </summary>
+        /// <param name="id">The id.</param>
+        /// <returns>Task{IList{BaseDbf2SqlMappingDto}}.</returns>
+        [HttpGet("get")]
+        public async Task<BaseDbf2SqlMappingDto> GetDbf2SqlMappingById(int id)
+        {
+            return await _mediator.Send(new GetDbf2SqlMappingByIdQuery(id));
+        }
+
+        /// <summary>
         /// Adds Dbf2SqlMapping.
         /// </summary>
         /// <param name="request">The request.</param>
         [HttpPost("add")]
         public async Task<bool> Add(Dbf2SqlMappingDto request)
+        {
+            return await _mediator.Send(new AddDbf2SqlMappingCommand(request));
+        }
+
+        /// <summary>
+        /// Edits Dbf2SqlMapping.
+        /// </summary>
+        /// <param name="request">The request.</param>
+        [HttpPost("edit")]
+        public async Task<bool> Edit(Dbf2SqlMappingDto request)
         {
             return await _mediator.Send(new AddDbf2SqlMappingCommand(request));
         }

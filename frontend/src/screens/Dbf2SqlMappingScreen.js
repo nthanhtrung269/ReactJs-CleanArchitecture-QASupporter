@@ -42,6 +42,9 @@ export default function Dbf2SqlMappingScreen(props) {
               <th>Notes</th>
               <th>Modified By</th>
               <th>Modified Date</th>
+              <th>Created By</th>
+              <th>Created Date</th>
+              <th></th>
               <th></th>
             </tr>
           </thead>
@@ -56,6 +59,19 @@ export default function Dbf2SqlMappingScreen(props) {
                 <td>{dbf2SqlMapping.Notes}</td>
                 <td>{dbf2SqlMapping.ModifiedBy}</td>
                 <td>{dbf2SqlMapping.ModifiedDate}</td>
+                <td>{dbf2SqlMapping.CreatedBy}</td>
+                <td>{dbf2SqlMapping.CreatedDate}</td>
+                <td>
+                  <button
+                    type="button"
+                    className="small"
+                    onClick={() => {
+                      props.history.push(`/dbf2sqlmapping/edit/${dbf2SqlMapping.Dbf2SqlMappingId}`);
+                    }}
+                  >
+                    Edit
+                  </button>
+                </td>
                 <td>
                   <button
                     type="button"
@@ -64,7 +80,7 @@ export default function Dbf2SqlMappingScreen(props) {
                       props.history.push(`/dbf2sqlmapping/${dbf2SqlMapping.Dbf2SqlMappingId}`);
                     }}
                   >
-                    Details
+                    Delete
                   </button>
                 </td>
               </tr>

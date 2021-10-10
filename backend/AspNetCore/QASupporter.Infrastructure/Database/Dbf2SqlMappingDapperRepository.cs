@@ -20,7 +20,15 @@ namespace QASupporter.Infrastructure.Database
                                     or SqlTable like concat('%', @keyword, '%') 
                                     or SqlColumn like concat('%', @keyword, '%')
                                     or Notes like concat('%', @keyword, '%'))";
-            return await QueryAsync<BaseDbf2SqlMappingDto>(sql, new { keyword = keyword, modifiedBy=modifiedBy });
+            return await QueryAsync<BaseDbf2SqlMappingDto>(sql, new { keyword = keyword, modifiedBy = modifiedBy });
+        }
+
+        public async Task<BaseDbf2SqlMappingDto> GetDbf2SqlMappingByIdAsync(int id)
+        {
+            const string sql = @"SELECT *
+                               FROM Dbf2SqlMapping
+                               WHERE Dbf2SqlMappingId=@id";
+            return await QuerySingleOrDefaultAsync<BaseDbf2SqlMappingDto>(sql, new { id });
         }
     }
 }

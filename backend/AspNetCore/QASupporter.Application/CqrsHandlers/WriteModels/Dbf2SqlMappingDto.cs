@@ -2,6 +2,8 @@
 {
     public class Dbf2SqlMappingDto
     {
+        public int Dbf2SqlMappingId { get; set; }
+
         public string FoxproTable { get; set; }
 
         public string FoxproColumn { get; set; }
