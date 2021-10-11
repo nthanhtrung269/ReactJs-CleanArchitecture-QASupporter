@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using QASupporter.Application.Configuration.ApplicationSettings;
 using QASupporter.Application.CqrsHandlers.AddDbf2SqlMapping;
+using QASupporter.Application.CqrsHandlers.DeleteDbf2SqlMapping;
 using QASupporter.Application.CqrsHandlers.GetAllDbf2SqlMappingByKeyword;
 using QASupporter.Application.CqrsHandlers.GetDbf2SqlMappingById;
 using QASupporter.Application.CqrsHandlers.ReadModels;
@@ -71,10 +72,20 @@ namespace QASupporter.Api.Controllers
         /// Edits Dbf2SqlMapping.
         /// </summary>
         /// <param name="request">The request.</param>
-        [HttpPost("edit")]
+        [HttpPut("edit")]
         public async Task<bool> Edit(Dbf2SqlMappingDto request)
         {
             return await _mediator.Send(new AddDbf2SqlMappingCommand(request));
+        }
+
+        /// <summary>
+        /// Deletes Dbf2SqlMapping.
+        /// </summary>
+        /// <param name="id">The id.</param>
+        [HttpDelete("delete")]
+        public async Task<bool> Delete(int id)
+        {
+            return await _mediator.Send(new DeleteDbf2SqlMappingCommand(id));
         }
     }
 }

@@ -1,9 +1,11 @@
 import React, { useEffect } from 'react';
+import { useAlert } from 'react-alert';
 import { useDispatch, useSelector } from 'react-redux';
-import { getAllDbf2SqlMappingByKeyword } from '../actions/dbf2SqlMappingActions';
+import { deleteDbf2SqlMapping, getAllDbf2SqlMappingByKeyword } from '../actions/dbf2SqlMappingActions';
 import LoadingBox from '../components/LoadingBox';
 import MessageBox from '../components/MessageBox';
 import SearchBox from '../components/SearchBox';
+import { DBF2SQL_MAPPING_DELETE_RESET } from '../constants/dbf2SqlMappingConstants';
 
 export default function Dbf2SqlMappingScreen(props) {
   // Document: https://stackoverflow.com/questions/35352638/react-how-to-get-parameter-value-from-query-string
@@ -11,14 +13,38 @@ export default function Dbf2SqlMappingScreen(props) {
   const modifiedBy = new URLSearchParams(props.location.search).get("modifiedBy");
   const dbf2SqlMappingList = useSelector((state) => state.getAllDbf2SqlMappingByKeyword);
   const { loading, error, dbf2SqlMappings } = dbf2SqlMappingList;
+
+  const dbf2SqlMappingDelete = useSelector((state) => state.dbf2SqlMappingDelete);
+  const {
+    loading: loadingDelete,
+    error: errorDelete,
+    success: successDelete,
+  } = dbf2SqlMappingDelete;
+
   const dispatch = useDispatch();
+  const alert = useAlert();
 
   useEffect(() => {
     dispatch(getAllDbf2SqlMappingByKeyword({
       keyword: keyword ? keyword : '',
       modifiedBy: modifiedBy ? modifiedBy : ''
     }));
-  }, [dispatch, keyword, modifiedBy]);
+
+    if (successDelete) {
+      alert.show('Dbf2SqlMapping Deleted Successfully!');
+      dispatch({ type: DBF2SQL_MAPPING_DELETE_RESET });
+    }
+    else if (errorDelete) {
+      alert.error(errorDelete);
+      dispatch({ type: DBF2SQL_MAPPING_DELETE_RESET });
+    }
+  }, [dispatch, keyword, modifiedBy, successDelete, errorDelete]);
+
+  const deleteHandler = (dbf2SqlMapping) => {
+    if (window.confirm('Are you sure?')) {
+      dispatch(deleteDbf2SqlMapping(dbf2SqlMapping.Dbf2SqlMappingId));
+    }
+  };
 
   return (
     <div>
@@ -42,8 +68,6 @@ export default function Dbf2SqlMappingScreen(props) {
               <th>Notes</th>
               <th>Modified By</th>
               <th>Modified Date</th>
-              <th>Created By</th>
-              <th>Created Date</th>
               <th></th>
               <th></th>
             </tr>
@@ -59,8 +83,6 @@ export default function Dbf2SqlMappingScreen(props) {
                 <td>{dbf2SqlMapping.Notes}</td>
                 <td>{dbf2SqlMapping.ModifiedBy}</td>
                 <td>{dbf2SqlMapping.ModifiedDate}</td>
-                <td>{dbf2SqlMapping.CreatedBy}</td>
-                <td>{dbf2SqlMapping.CreatedDate}</td>
                 <td>
                   <button
                     type="button"
@@ -76,9 +98,7 @@ export default function Dbf2SqlMappingScreen(props) {
                   <button
                     type="button"
                     className="small"
-                    onClick={() => {
-                      props.history.push(`/dbf2sqlmapping/${dbf2SqlMapping.Dbf2SqlMappingId}`);
-                    }}
+                    onClick={() => deleteHandler(dbf2SqlMapping)}
                   >
                     Delete
                   </button>

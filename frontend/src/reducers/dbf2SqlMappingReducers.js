@@ -3,6 +3,10 @@ import {
     DBF2SQL_MAPPING_CREATE_REQUEST,
     DBF2SQL_MAPPING_CREATE_RESET,
     DBF2SQL_MAPPING_CREATE_SUCCESS,
+    DBF2SQL_MAPPING_DELETE_FAIL,
+    DBF2SQL_MAPPING_DELETE_REQUEST,
+    DBF2SQL_MAPPING_DELETE_RESET,
+    DBF2SQL_MAPPING_DELETE_SUCCESS,
     DBF2SQL_MAPPING_DETAIL_FAIL,
     DBF2SQL_MAPPING_DETAIL_REQUEST,
     DBF2SQL_MAPPING_DETAIL_RESET,
@@ -68,6 +72,21 @@ export const dbf2SqlMappingEditReducer = (state = {}, action) => {
         case DBF2SQL_MAPPING_EDIT_FAIL:
             return { loading: false, error: action.payload };
         case DBF2SQL_MAPPING_EDIT_RESET:
+            return {};
+        default:
+            return state;
+    }
+};
+
+export const dbf2SqlMappingDeleteReducer = (state = {}, action) => {
+    switch (action.type) {
+        case DBF2SQL_MAPPING_DELETE_REQUEST:
+            return { loading: true };
+        case DBF2SQL_MAPPING_DELETE_SUCCESS:
+            return { loading: false, success: action.payload };
+        case DBF2SQL_MAPPING_DELETE_FAIL:
+            return { loading: false, error: action.payload };
+        case DBF2SQL_MAPPING_DELETE_RESET:
             return {};
         default:
             return state;

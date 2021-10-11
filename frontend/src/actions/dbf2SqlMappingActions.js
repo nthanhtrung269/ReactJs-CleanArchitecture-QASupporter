@@ -3,6 +3,9 @@ import {
     DBF2SQL_MAPPING_CREATE_FAIL,
     DBF2SQL_MAPPING_CREATE_REQUEST,
     DBF2SQL_MAPPING_CREATE_SUCCESS,
+    DBF2SQL_MAPPING_DELETE_FAIL,
+    DBF2SQL_MAPPING_DELETE_REQUEST,
+    DBF2SQL_MAPPING_DELETE_SUCCESS,
     DBF2SQL_MAPPING_DETAIL_FAIL,
     DBF2SQL_MAPPING_DETAIL_REQUEST,
     DBF2SQL_MAPPING_DETAIL_SUCCESS,
@@ -51,7 +54,7 @@ export const createDbf2SqlMapping = (dbf2SqlMapping) => async (dispatch) => {
     try {
         const { data } = await Axios.post(`${DBF2SQL_MAPPING_API_BASE_URL}/api/dbf2sqlmapping/add`, dbf2SqlMapping, {
             headers: { Authorization: 'Bearer token...' },
-          });
+        });
         dispatch({ type: DBF2SQL_MAPPING_CREATE_SUCCESS, payload: data });
     } catch (error) {
         dispatch({
@@ -67,9 +70,9 @@ export const createDbf2SqlMapping = (dbf2SqlMapping) => async (dispatch) => {
 export const editDbf2SqlMapping = (dbf2SqlMapping) => async (dispatch) => {
     dispatch({ type: DBF2SQL_MAPPING_EDIT_REQUEST, payload: dbf2SqlMapping });
     try {
-        const { data } = await Axios.post(`${DBF2SQL_MAPPING_API_BASE_URL}/api/dbf2sqlmapping/edit`, dbf2SqlMapping, {
+        const { data } = await Axios.put(`${DBF2SQL_MAPPING_API_BASE_URL}/api/dbf2sqlmapping/edit`, dbf2SqlMapping, {
             headers: { Authorization: 'Bearer token...' },
-          });
+        });
         dispatch({ type: DBF2SQL_MAPPING_EDIT_SUCCESS, payload: data });
     } catch (error) {
         dispatch({
@@ -79,5 +82,21 @@ export const editDbf2SqlMapping = (dbf2SqlMapping) => async (dispatch) => {
                     ? error.response.data.message
                     : error.message,
         });
+    }
+};
+
+export const deleteDbf2SqlMapping = (dbf2SqlMappingId) => async (dispatch, getState) => {
+    dispatch({ type: DBF2SQL_MAPPING_DELETE_REQUEST, payload: dbf2SqlMappingId });
+    try {
+        const { data } = await Axios.delete(`${DBF2SQL_MAPPING_API_BASE_URL}/api/dbf2sqlmapping/delete/?id=${dbf2SqlMappingId}`, {
+            headers: { Authorization: 'Bearer token...' },
+        });
+        dispatch({ type: DBF2SQL_MAPPING_DELETE_SUCCESS, payload: data });
+    } catch (error) {
+        const message =
+            error.response && error.response.data.message
+                ? error.response.data.message
+                : error.message;
+        dispatch({ type: DBF2SQL_MAPPING_DELETE_FAIL, payload: message });
     }
 };

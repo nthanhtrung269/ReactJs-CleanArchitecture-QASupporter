@@ -61,6 +61,12 @@
             </summary>
             <param name="request">The request.</param>
         </member>
+        <member name="M:QASupporter.Api.Controllers.Dbf2SqlMappingControllerController.Delete(System.Int32)">
+            <summary>
+            Deletes Dbf2SqlMapping.
+            </summary>
+            <param name="id">The id.</param>
+        </member>
         <member name="T:QASupporter.Api.Controllers.SettingController">
             <summary>
             Setting Controller.
