@@ -1,37 +1,43 @@
 import React, { useEffect, useState } from 'react';
+import { useAlert } from 'react-alert';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { register } from '../actions/userActions';
 import LoadingBox from '../components/LoadingBox';
 import MessageBox from '../components/MessageBox';
+import { USER_REGISTER_RESET } from '../constants/userConstants';
 
 export default function RegisterScreen(props) {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [confirmPassword, setConfirmPassword] = useState('');
 
   const redirect = props.location.search
     ? props.location.search.split('=')[1]
     : '/';
 
   const userRegister = useSelector((state) => state.userRegister);
-  const { userInfo, loading, error } = userRegister;
+  const { success, loading, error } = userRegister;
 
   const dispatch = useDispatch();
   const submitHandler = (e) => {
     e.preventDefault();
-    if (password !== confirmPassword) {
-      alert('Password and confirm password are not match');
-    } else {
-      dispatch(register(name, email, password));
-    }
+    dispatch(register(name, email, '123'));
   };
+
+  const alert = useAlert();
+
   useEffect(() => {
-    if (userInfo) {
-      props.history.push(redirect);
+    if (success) {
+      alert.show('Success Create!');
+      dispatch({ type: USER_REGISTER_RESET });
+      props.history.push(`/signin?redirect=${redirect}`);
     }
-  }, [props.history, redirect, userInfo]);
+    else if (error) {
+      alert.error(error);
+      dispatch({ type: USER_REGISTER_RESET });
+    }
+  }, [props.history, redirect, success, error]);
+
   return (
     <div>
       <form className="form" onSubmit={submitHandler}>
@@ -56,7 +62,6 @@ export default function RegisterScreen(props) {
             type="email"
             id="email"
             placeholder="Enter email"
-            required
             onChange={(e) => setEmail(e.target.value)}
           ></input>
         </div>
@@ -65,9 +70,8 @@ export default function RegisterScreen(props) {
           <input
             type="password"
             id="password"
-            placeholder="Enter password"
-            required
-            onChange={(e) => setPassword(e.target.value)}
+            placeholder="Enter password (Default: 123)"
+            disabled
           ></input>
         </div>
         <div>
@@ -75,9 +79,8 @@ export default function RegisterScreen(props) {
           <input
             type="password"
             id="confirmPassword"
-            placeholder="Enter confirm password"
-            required
-            onChange={(e) => setConfirmPassword(e.target.value)}
+            placeholder="Enter confirm password (Default: 123)"
+            disabled
           ></input>
         </div>
         <div>

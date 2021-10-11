@@ -5,6 +5,8 @@ using QASupporter.Api.RequestObjects;
 using QASupporter.Application.Configuration.ApplicationSettings;
 using QASupporter.Application.CqrsHandlers.GetAllUsers;
 using QASupporter.Application.CqrsHandlers.ReadModels;
+using QASupporter.Application.CqrsHandlers.Register;
+using QASupporter.Application.CqrsHandlers.WriteModels;
 using QASupporter.Domain.Constants;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -34,6 +36,17 @@ namespace QASupporter.Api.Controllers
         }
 
         /// <summary>
+        /// Register.
+        /// </summary>
+        /// <param name="request">The request.</param>
+        /// <returns>System.Boolean.</returns>
+        [HttpPost("register")]
+        public async Task<bool> RegisterAsync([FromBody] UserDto request)
+        {
+            return await _mediator.Send(new RegisterCommand(request));
+        }
+
+        /// <summary>
         /// Signin.
         /// </summary>
         /// <param name="request">The request.</param>
@@ -47,6 +60,7 @@ namespace QASupporter.Api.Controllers
                 {
                     Email = "admin@gmail.com",
                     UserName = "admin",
+                    IsAdmin = true,
                     Status = true
                 };
             }

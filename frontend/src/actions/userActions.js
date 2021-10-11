@@ -27,17 +27,15 @@ import {
   USER_TOPSELLERS_LIST_FAIL,
 } from '../constants/userConstants';
 
-export const register = (name, email, password) => async (dispatch) => {
-  dispatch({ type: USER_REGISTER_REQUEST, payload: { email, password } });
+export const register = (userName, email, password) => async (dispatch) => {
+  dispatch({ type: USER_REGISTER_REQUEST, payload: { userName, email, password } });
   try {
-    const { data } = await Axios.post('/api/users/register', {
-      name,
+    const { data } = await Axios.post(`${DBF2SQL_MAPPING_API_BASE_URL}/api/users/register`, {
+      userName,
       email,
       password,
     });
     dispatch({ type: USER_REGISTER_SUCCESS, payload: data });
-    dispatch({ type: USER_SIGNIN_SUCCESS, payload: data });
-    localStorage.setItem('userInfo', JSON.stringify(data));
   } catch (error) {
     dispatch({
       type: USER_REGISTER_FAIL,

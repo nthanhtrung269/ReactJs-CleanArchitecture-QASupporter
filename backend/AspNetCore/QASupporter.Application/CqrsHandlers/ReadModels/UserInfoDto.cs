@@ -9,6 +9,8 @@ namespace QASupporter.Application.CqrsHandlers.ReadModels
 
         public string UserName { get; set; }
 
+        public bool IsAdmin { get; set; }
+
         public string ModifiedBy { get; set; }
 
         public DateTime? ModifiedDate { get; set; }

@@ -19,9 +19,7 @@ import Dbf2SqlMappingEditScreen from './screens/Dbf2SqlMappingAddEditScreen';
 import OrderListScreen from './screens/OrderListScreen';
 import UserListScreen from './screens/UserListScreen';
 import UserEditScreen from './screens/UserEditScreen';
-import SellerRoute from './components/SellerRoute';
 import SellerScreen from './screens/SellerScreen';
-import SearchBox from './components/SearchBox';
 import SearchScreen from './screens/SearchScreen';
 import { listProductCategories } from './actions/productActions';
 import LoadingBox from './components/LoadingBox';
@@ -70,7 +68,7 @@ function App() {
           </div>
           <div>
             <Link to="/cart">
-              Cart
+              Notifications
               {cartItems.length > 0 && (
                 <span className="badge">{cartItems.length}</span>
               )}
@@ -78,14 +76,14 @@ function App() {
             {userInfo ? (
               <div className="dropdown">
                 <Link to="#">
-                  {userInfo.name} <i className="fa fa-caret-down"></i>{' '}
+                  {userInfo.UserName} <i className="fa fa-caret-down"></i>{' '}
                 </Link>
                 <ul className="dropdown-content">
                   <li>
                     <Link to="/profile">User Profile</Link>
                   </li>
                   <li>
-                    <Link to="/orderhistory">Order History</Link>
+                    <Link to="/orderhistory">Action History</Link>
                   </li>
                   <li>
                     <Link to="/dbf2sqlmapping">DBF to SQL Mapping</Link>
@@ -103,22 +101,7 @@ function App() {
             ) : (
               <Link to="/signin">Sign In</Link>
             )}
-            {userInfo && userInfo.isSeller && (
-              <div className="dropdown">
-                <Link to="#admin">
-                  Seller <i className="fa fa-caret-down"></i>
-                </Link>
-                <ul className="dropdown-content">
-                  <li>
-                    <Link to="/productlist/seller">Products</Link>
-                  </li>
-                  <li>
-                    <Link to="/orderlist/seller">Orders</Link>
-                  </li>
-                </ul>
-              </div>
-            )}
-            {userInfo && userInfo.isAdmin && (
+            {userInfo && userInfo.IsAdmin && (
               <div className="dropdown">
                 <Link to="#admin">
                   Admin <i className="fa fa-caret-down"></i>
@@ -214,42 +197,31 @@ function App() {
             component={ProfileScreen}
           ></PrivateRoute>
           <PrivateRoute path="/map" component={MapScreen}></PrivateRoute>
-          <AdminRoute
+          <Route
             path="/productlist"
             component={ProductListScreen}
             exact
-          ></AdminRoute>
-          <AdminRoute
+          ></Route>
+          <Route
             path="/productlist/pageNumber/:pageNumber"
             component={ProductListScreen}
             exact
-          ></AdminRoute>
-          <AdminRoute
+          ></Route>
+          <Route
             path="/orderlist"
             component={OrderListScreen}
             exact
-          ></AdminRoute>
+          ></Route>
           <AdminRoute path="/userlist" component={UserListScreen}></AdminRoute>
           <AdminRoute
             path="/user/:id/edit"
             component={UserEditScreen}
           ></AdminRoute>
-
-          <AdminRoute
+          <AdminRoute path="/support" component={SupportScreen}></AdminRoute>
+          <Route
             path="/dashboard"
             component={DashboardScreen}
-          ></AdminRoute>
-          <AdminRoute path="/support" component={SupportScreen}></AdminRoute>
-
-          <SellerRoute
-            path="/productlist/seller"
-            component={ProductListScreen}
-          ></SellerRoute>
-          <SellerRoute
-            path="/orderlist/seller"
-            component={OrderListScreen}
-          ></SellerRoute>
-
+          ></Route>
           <Route path="/" component={HomeScreen} exact></Route>
         </main>
         <footer className="row center">

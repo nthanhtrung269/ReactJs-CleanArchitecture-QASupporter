@@ -35,6 +35,7 @@ namespace QASupporter.Infrastructure.Database
         public virtual DbSet<File> Files { get; set; }
         public virtual DbSet<Setting> Settings { get; set; }
         public virtual DbSet<Dbf2SqlMapping> Dbf2SqlMappings { get; set; }
+        public virtual DbSet<User> Users { get; set; }
 
         public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = new CancellationToken())
         {
@@ -141,6 +142,29 @@ namespace QASupporter.Infrastructure.Database
                 entity.Property(e => e.SqlColumn).HasMaxLength(50);
 
                 entity.Property(e => e.Notes).HasMaxLength(500);
+
+                entity.Property(e => e.CreatedBy).HasMaxLength(50);
+
+                entity.Property(e => e.CreatedDate).HasColumnType("datetime");
+
+                entity.Property(e => e.ModifiedBy).HasMaxLength(50);
+
+                entity.Property(e => e.ModifiedDate).HasColumnType("datetime");
+            });
+
+            modelBuilder.Entity<User>(entity =>
+            {
+                entity.Property(e => e.Id).HasColumnName("UserId");
+
+                entity.HasKey(e => e.Id).HasName("PK_Users");
+
+                entity.ToTable("Users");
+
+                entity.Property(e => e.UserName).HasMaxLength(50);
+
+                entity.Property(e => e.Email).HasMaxLength(50);
+
+                entity.Property(e => e.Password).HasMaxLength(50);
 
                 entity.Property(e => e.CreatedBy).HasMaxLength(50);
 

@@ -104,6 +104,13 @@
             <param name="mediator">The mediator.</param>
             <param name="config">The config.</param>
         </member>
+        <member name="M:QASupporter.Api.Controllers.UsersController.RegisterAsync(QASupporter.Application.CqrsHandlers.WriteModels.UserDto)">
+            <summary>
+            Register.
+            </summary>
+            <param name="request">The request.</param>
+            <returns>System.Boolean.</returns>
+        </member>
         <member name="M:QASupporter.Api.Controllers.UsersController.SignIn(QASupporter.Api.RequestObjects.SignInRequest)">
             <summary>
             Signin.
