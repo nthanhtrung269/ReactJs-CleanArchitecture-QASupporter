@@ -40,17 +40,17 @@ export const register = (userName, email, password) => async (dispatch) => {
     dispatch({
       type: USER_REGISTER_FAIL,
       payload:
-        error.response && error.response.data.message
-          ? error.response.data.message
+        error.response && error.response.data.Message
+          ? error.response.data.Message
           : error.message,
     });
   }
 };
 
-export const signin = (email, password) => async (dispatch) => {
-  dispatch({ type: USER_SIGNIN_REQUEST, payload: { email, password } });
+export const signin = (userName, password) => async (dispatch) => {
+  dispatch({ type: USER_SIGNIN_REQUEST, payload: { userName, password } });
   try {
-    const { data } = await Axios.post('/api/users/signin', { email, password });
+    const { data } = await Axios.post('/api/users/signin', { userName, password });
 
     if (data.Status) {
       dispatch({ type: USER_SIGNIN_SUCCESS, payload: data });
@@ -65,8 +65,8 @@ export const signin = (email, password) => async (dispatch) => {
     dispatch({
       type: USER_SIGNIN_FAIL,
       payload:
-        error.response && error.response.data.message
-          ? error.response.data.message
+        error.response && error.response.data.Message
+          ? error.response.data.Message
           : error.message,
     });
   }

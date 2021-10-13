@@ -16,5 +16,11 @@ namespace QASupporter.Infrastructure.Database
             const string sql = @"SELECT * FROM Users order by UserName";
             return await QueryAsync<BaseUserDto>(sql);
         }
+
+        public async Task<BaseUserDto> GetUserByUserNameAsync(string userName)
+        {
+            const string sql = @"SELECT * FROM Users where UserName=@userName";
+            return await QuerySingleOrDefaultAsync<BaseUserDto>(sql, new { userName });
+        }
     }
 }

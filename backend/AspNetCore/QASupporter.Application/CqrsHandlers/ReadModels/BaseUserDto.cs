@@ -1,6 +1,4 @@
-﻿using QASupporter.Domain.SharedKernel;
-
-namespace QASupporter.Application.CqrsHandlers.ReadModels
+﻿namespace QASupporter.Application.CqrsHandlers.ReadModels
 {
     public class BaseUserDto
     {
@@ -13,5 +11,7 @@ namespace QASupporter.Application.CqrsHandlers.ReadModels
         public string Password { get; set; }
 
         public bool IsAdmin { get; set; }
+
+        public bool Status { get; set; }
     }
 }

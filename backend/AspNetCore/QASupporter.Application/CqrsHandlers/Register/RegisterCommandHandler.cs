@@ -25,6 +25,9 @@ namespace QASupporter.Application.CqrsHandlers.Register
         public async Task<bool> Handle(RegisterCommand request, CancellationToken cancellationToken)
         {
             Guard.AgainstNull(nameof(RegisterCommand), request);
+            Guard.AgainstNullOrEmpty(nameof(request.User.UserName), request.User.UserName);
+            User existedUser = await _userRepository.GetUserByUserNameAsync(request.User.UserName);
+            Guard.AgainstInvalidOperationWithMessage($"UserName {request.User.UserName} is not available.", existedUser == null);
 
             var user = _mapper.Map<UserDto, User>(request.User);
 

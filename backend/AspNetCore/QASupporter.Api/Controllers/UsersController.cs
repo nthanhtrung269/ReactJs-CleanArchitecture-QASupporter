@@ -1,13 +1,12 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
-using QASupporter.Api.RequestObjects;
 using QASupporter.Application.Configuration.ApplicationSettings;
 using QASupporter.Application.CqrsHandlers.GetAllUsers;
 using QASupporter.Application.CqrsHandlers.ReadModels;
 using QASupporter.Application.CqrsHandlers.Register;
+using QASupporter.Application.CqrsHandlers.SignIn;
 using QASupporter.Application.CqrsHandlers.WriteModels;
-using QASupporter.Domain.Constants;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -52,26 +51,17 @@ namespace QASupporter.Api.Controllers
         /// <param name="request">The request.</param>
         /// <returns>UserInfoDto.</returns>
         [HttpPost("signin")]
-        public UserInfoDto SignIn([FromBody] SignInRequest request)
+        public async Task<BaseUserDto> SignInAsync([FromBody] UserDto request)
         {
-            if (request.Email == "admin@gmail.com")
+            BaseUserDto baseUserDto = await _mediator.Send(new SignInQuery(request));
+
+            if (baseUserDto != null)
             {
-                return new UserInfoDto()
-                {
-                    Email = "admin@gmail.com",
-                    UserName = "admin",
-                    IsAdmin = true,
-                    Status = true
-                };
+                baseUserDto.Password = string.Empty;
+                baseUserDto.Status = true;
             }
-            else
-            {
-                return new UserInfoDto()
-                {
-                    Status = false,
-                    Message = MessageConstants.InvalidOperation
-                };
-            }
+
+            return baseUserDto;
         }
 
         /// <summary>
